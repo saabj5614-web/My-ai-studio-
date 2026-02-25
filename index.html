@@ -1,228 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIM KI DATA NIKALO FREE ME</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Killer King Official - VIP SIM Database 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      margin: 0; padding: 0; 
+      font-family: 'Poppins', sans-serif; 
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); 
+      color: #fff; 
+      min-height: 100vh; 
+    }
+    header { 
+      background: rgba(0,0,0,0.7); 
+      padding: 30px; 
+      text-align: center; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+    }
+    h1 { 
+      font-family: 'Orbitron', sans-serif; 
+      font-size: 4em; 
+      color: #ff004d; 
+      text-shadow: 0 0 20px #ff004d, 0 0 40px #ff004d; 
+      margin: 0; 
+    }
+    .glow { animation: glow 2s infinite alternate; }
+    @keyframes glow { from { text-shadow: 0 0 10px #ff004d; } to { text-shadow: 0 0 40px #ff004d; } }
     
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    .container { max-width: 900px; margin: 50px auto; padding: 30px; background: rgba(20,20,40,0.8); border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 0 50px rgba(255,0,77,0.3); }
+    input { width: 65%; padding: 15px; font-size: 1.3em; border: 2px solid #ff004d; border-radius: 10px; background: #111; color: white; outline: none; }
+    button { padding: 15px 40px; background: #ff004d; color: white; border: none; border-radius: 10px; font-size: 1.3em; cursor: pointer; transition: 0.3s; margin-left: 10px; }
+    button:hover { background: #d0003a; transform: scale(1.05); }
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    /* Loading Screen */
+    #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; transition: opacity 0.5s; }
+    #loading.active { opacity: 1; }
+    .spinner { border: 8px solid #ff004d; border-top: 8px solid transparent; border-radius: 50%; width: 80px; height: 80px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     
-    <style>
-        :root { --primary: #ff0000; --bg: #0a0a0a; --glass: rgba(150, 150, 150, 0.05); }
-        
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; overflow: hidden; }
-
-        /* --- Loading / Splash Screen --- */
-        #loader { position: fixed; width: 100%; height: 100vh; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: 0.5s; }
-        .spinner { width: 60px; height: 60px; border: 5px solid #111; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-text { margin-top: 20px; font-family: 'Orbitron'; letter-spacing: 5px; color: var(--primary); text-shadow: 0 0 10px blue; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* --- Main Layout --- */
-        .container { height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle, #1a1a1a, #000); }
-        .card { background: var(--glass); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; width: 90%; max-width: 420px; text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        
-        h1 { font-family: 'Orbitron'; color: var(--primary); text-shadow: 0 0 15px blue; margin-bottom: 5px; font-size: 28px; }
-        .tagline { color: #666; font-size: 10px; letter-spacing: 2px; margin-bottom: 20px; }
-
-        input { width: 100%; padding: 14px; margin: 10px 0; background: rgba(0,0,0,0.7); border: 1px solid #333; color: #fff; border-radius: 10px; box-sizing: border-box; text-align: center; outline: none; transition: 0.3s; font-size: 16px; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255,0,0,0.2); }
-
-        button { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-family: 'Orbitron'; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; }
-        button:hover { transform: scale(0.98); opacity: 0.9; }
-
-        /* --- WhatsApp Modal --- */
-        #wp-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .wp-box { background: #111; padding: 40px; border-radius: 20px; text-align: center; border: 1px solid #25D366; width: 85%; max-width: 320px; }
-        .wp-btn { background: #25D366; color: white; text-decoration: none; padding: 14px; border-radius: 8px; display: block; margin-top: 20px; font-weight: bold; font-family: 'Orbitron'; font-size: 14px; }
-
-        /* --- Admin Panel --- */
-        #admin-trigger { position: fixed; top: 50px; left: 15px; z-index: 1000; }
-        .admin-box { display: none; background: #121212; padding: 20px; border-radius: 15px; border: 1px solid var(--primary); width: 260px; box-shadow: 0 0 30px #000; position: absolute; bottom: 45px; right: 0; max-height: 70vh; overflow-y: auto; }
-        .admin-box label { font-size: 10px; color: #888; display: block; text-align: left; margin-top: 10px; }
-
-        /* --- Results --- */
-        #result-box { margin-top: 25px; text-align: left; display: none; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; border-left: 4px solid var(--primary); animation: slideIn 0.4s ease; }
-        .data-row { margin-bottom: 8px; font-size: 14px; border-bottom: 1px solid #222; padding-bottom: 4px; }
-        .data-label { color: var(--primary); font-size: 10px; font-weight: bold; display: block; }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+    /* Result Card */
+    #result { display: none; margin-top: 40px; background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border: 1px solid #ff004d; }
+    .info { font-size: 1.2em; margin: 10px 0; }
+    .copy-btn { background: #00ff9d; color: black; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px; }
+    
+    footer { text-align: center; padding: 30px; color: #aaa; font-size: 0.9em; }
+    .whatsapp { color: #25D366; text-decoration: none; font-weight: bold; }
+  </style>
 </head>
-<body onload="startSystem()">
+<body>
+  <!-- Loading Screen -->
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
 
-    <audio id="soundWelcome" src="https://www.soundjay.com/buttons/button-09a.mp3"></audio>
-    <audio id="soundClick" src="https://www.soundjay.com/buttons/button-37a.mp3"></audio>
+  <header>
+    <h1 class="glow">KILLER KING OFFICIAL</h1>
+    <p style="font-size: 1.5em; margin-top: 10px;">Pakistan's #1 VIP SIM & CNIC Database 2026</p>
+  </header>
 
-    <div id="loader">
-        <div class="spinner"></div>
-        <div class="loader-text">KILLER KING VIP</div>
+  <div class="container">
+    <h2>अपना नंबर या CNIC डालो</h2>
+    <input type="text" placeholder="जैसे: 3141495075 या 3520212345678" id="searchInput">
+    <button onclick="searchData()">Search Now</button>
+
+    <div id="result">
+      <div class="info"><strong>Name:</strong> <span id="name">-</span> <button class="copy-btn" onclick="copy('name')">Copy</button></div>
+      <div class="info"><strong>Phone:</strong> <span id="phone">-</span> <button class="copy-btn" onclick="copy('phone')">Copy</button></div>
+      <div class="info"><strong>CNIC:</strong> <span id="cnic">-</span> <button class="copy-btn" onclick="copy('cnic')">Copy</button></div>
+      <div class="info"><strong>Location:</strong> <span id="location">-</span></div>
+      <div class="info"><strong>Status:</strong> <span id="status" style="color:#00ff9d">Active</span></div>
+      <img src="https://via.placeholder.com/150?text=Photo" alt="User Photo" style="border-radius:10px; margin-top:20px;">
     </div>
 
-    <div id="wp-modal">
-        <div class="wp-box">
-            <h2 style="color: #25D366; font-family: 'Orbitron';">LOCKED</h2>
-            <p style="font-size: 12px; color: #aaa;">Join official channel to unlock the database.</p>
-            <a id="liveWpLink" href="#" target="_blank" class="wp-btn" onclick="unlockSystem()">JOIN NOW</a>
-        </div>
-    </div>
+    <p style="margin-top: 40px;">कोई इश्यू हो तो WhatsApp करो: 
+      <a href="https://wa.me/+923483763349" class="whatsapp" target="_blank">+923483763349</a>
+    </p>
+  </div>
 
-    <div class="container">
-        <div class="card">
-            <h1>KILLER KING</h1>
-            <div class="tagline">PREMIUM DATABASE ACCESS</div>
-            
-            <input type="text" id="phoneInput" placeholder="Enter Number (03XXXXXXXXX)">
-            <button onclick="handleSearch()" id="mainBtn">SCAN DATABASE</button>
+  <footer>
+    © 2026 Killer King Official | Powered by FAM & Amna VIP API | All Data Protected
+  </footer>
 
-            <div id="result-box"></div>
-        </div>
-    </div>
+  <script>
+    const loading = document.getElementById('loading');
+    const resultDiv = document.getElementById('result');
 
-    <div id="admin-trigger">
-        <div class="admin-box" id="adminBox">
-            <p style="font-family: 'Orbitron'; font-size: 12px; color: blue(--primary);">MASTER CONTROL</p>
-            <div id="adminAuth">
-                <input type="password" id="adminPassInput" placeholder="Password">
-                <button onclick="authAdmin()" style="font-size: 10px; padding: 8px;">LOGIN</button>
-            </div>
-            <div id="adminFields" style="display:none;">
-                <label>WhatsApp Link:</label>
-                <input type="text" id="fbLink" placeholder="Link">
-                <label>Support Number:</label>
-                <input type="text" id="fbNum" placeholder="923...">
-                <label>Admin Password:</label>
-                <input type="text" id="fbPass" placeholder="New Pass">
-                <button onclick="saveToFirebase()" style="background: #28a745; font-size: 10px;">SAVE LIVE</button>
-                <button onclick="location.reload()" style="background: #333; font-size: 10px; margin-top:5px;">LOGOUT</button>
-            </div>
-        </div>
-        <button onclick="toggleAdmin()" style="width: auto; padding: 5px 15px; font-size: 10px; background: rgba(255,0,0,0.1); border: 1px solid var(--primary);">ADMIN</button>
-    </div>
+    async function searchData() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (!query) return alert("नंबर या CNIC डालो भाई!");
 
-    <script>
-        // --- YOUR FIREBASE CONFIG ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyA0R7a03Habu9c-fRnlJgXRtOkUUBRXBYk",
-            authDomain: "myaicoder-6ce7a.firebaseapp.com",
-            projectId: "myaicoder-6ce7a",
-            databaseURL: "https://myaicoder-6ce7a-default-rtdb.firebaseio.com",
-            storageBucket: "myaicoder-6ce7a.firebasestorage.app",
-            messagingSenderId: "1035663178472",
-            appId: "1:1035663178472:web:3b6f72e4cc6e2a48c2275d"
-        };
+      loading.classList.add('active');
+      resultDiv.style.display = 'none';
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+      try {
+        // तेरी API यहाँ लगेगी
+        const response = await fetch(`https://fam-official.serv00.net/api/database.php?number=${query}`);
+        const data = await response.json();
 
-        let currentSettings = {
-            wpLink: "https://whatsapp.com/channel/0029Va8W8x9",
-            wpNum: "923000000000",
-            pass: "killer_king-804"
-        };
+        // अगर API से डेटा आया तो दिखाओ (अभी डमी डेटा यूज कर रहा हूँ)
+        document.getElementById('name').textContent = data.name || "Killer King User";
+        document.getElementById('phone').textContent = data.phone || query;
+        document.getElementById('cnic').textContent = data.cnic || "N/A";
+        document.getElementById('location').textContent = data.location || "Lahore, Pakistan";
 
-        // --- System Start ---
-        function startSystem() {
-            // Load Live Settings
-            db.ref('killer_king_data').on('value', (snap) => {
-                if(snap.val()) {
-                    currentSettings = snap.val();
-                    document.getElementById('liveWpLink').href = currentSettings.wpLink;
-                } else {
-                    db.ref('killer_king_data').set(currentSettings);
-                }
-            });
+        resultDiv.style.display = 'block';
+      } catch (err) {
+        alert("डेटा नहीं मिला... या API डाउन है!");
+      }
 
-            // Splash Screen Timer
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                document.getElementById('soundWelcome').play().catch(e => {});
-                setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    checkLock();
-                }, 500);
-            }, 2500);
-        }
+      loading.classList.remove('active');
+    }
 
-        function checkLock() {
-            if (!localStorage.getItem('killer_unlocked')) {
-                document.getElementById('wp-modal').style.display = 'flex';
-            }
-        }
-
-        function unlockSystem() {
-            localStorage.setItem('killer_unlocked', 'true');
-            setTimeout(() => document.getElementById('wp-modal').style.display = 'none', 1000);
-        }
-
-        // --- Admin Functions ---
-        function toggleAdmin() {
-            let b = document.getElementById('adminBox');
-            b.style.display = b.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function authAdmin() {
-            if(document.getElementById('adminPassInput').value === currentSettings.pass) {
-                document.getElementById('adminAuth').style.display = 'none';
-                document.getElementById('adminFields').style.display = 'block';
-                document.getElementById('fbLink').value = currentSettings.wpLink;
-                document.getElementById('fbNum').value = currentSettings.wpNum;
-                document.getElementById('fbPass').value = currentSettings.pass;
-            } else {
-                alert("ACCESS DENIED!");
-            }
-        }
-
-        function saveToFirebase() {
-            const data = {
-                wpLink: document.getElementById('fbLink').value,
-                wpNum: document.getElementById('fbNum').value,
-                pass: document.getElementById('fbPass').value
-            };
-            db.ref('killer_king_data').set(data)
-            .then(() => alert("DATABASE UPDATED LIVE!"))
-            .catch(() => alert("Error: Check Firebase Rules!"));
-        }
-
-        // --- Search Function ---
-        async function handleSearch() {
-            const num = document.getElementById('phoneInput').value;
-            const resBox = document.getElementById('result-box');
-            if(!num) return alert("Enter Number!");
-
-            document.getElementById('soundClick').play();
-            document.getElementById('mainBtn').innerText = "SCANNING...";
-            resBox.style.display = 'none';
-
-            try {
-                const response = await fetch(`https://fam-official.serv00.net/api/database.php?number=${num}`);
-                const data = await response.json();
-
-                if(data && data.name) {
-                    resBox.style.display = 'block';
-                    resBox.innerHTML = `
-                        <div class="data-row"><span class="data-label">NAME</span><b>${data.name}</b></div>
-                        <div class="data-row"><span class="data-label">CNIC</span><b>${data.cnic}</b></div>
-                        <div class="data-row"><span class="data-label">ADDRESS</span><b>${data.address}</b></div>
-                        <div class="data-row"><span class="data-label">CITY</span><b>${data.city || 'N/A'}</b></div>
-                        <center><a href="https://wa.me/${currentSettings.wpNum}" target="_blank" style="color:yellow; font-size:11px; text-decoration:none;">[ REPORT ERROR ]</a></center>
-                    `;
-                } else {
-                    resBox.style.display = 'block';
-                    resBox.innerHTML = "<center style='color:orange;'>No record found in VIP list.</center>";
-                }
-            } catch (error) {
-                resBox.style.display = 'block';
-                resBox.innerHTML = "<center style='color:red;'>Chal Bhadwe!</center>";
-            } finally {
-                document.getElementById('mainBtn').innerText = "SCAN DATABASE";
-            }
-        }
-    </script>
+    function copy(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text);
+      alert("कॉपी हो गया! 🔥");
+    }
+  </script>
 </body>
 </html>
